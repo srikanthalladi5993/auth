@@ -16,6 +16,9 @@ export const clearAuthSession = () => {
   localStorage.removeItem(AUTH_KEYS.user)
 }
 
+export const getAccessToken = () => localStorage.getItem(AUTH_KEYS.accessToken)
+export const getRefreshToken = () => localStorage.getItem(AUTH_KEYS.refreshToken)
+
 export const getStoredUser = () => {
   const storedUser = localStorage.getItem(AUTH_KEYS.user)
   return storedUser ? JSON.parse(storedUser) : null
