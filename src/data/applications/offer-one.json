@@ -1,0 +1,82 @@
+{
+  "id": "energy-ops",
+  "name": "EVQC",
+  "industry": "Manufacturing",
+  "summary": "",
+  "menus": [
+    { "id": "overview", "label": "Overview" },
+    { "id": "defects", "label": "Defects" },
+    { "id": "quality", "label": "Quality Metrics" },
+    { "id": "lines", "label": "Production Lines" },
+    { "id": "reports", "label": "Reports" }
+  ],
+  "stats": [
+    { "label": "Quality Score", "value": "94.2%", "trend": "+2.1%" },
+    { "label": "Defects Detected", "value": "127", "trend": "-8.5%" }
+  ],
+  "healthMetric": {
+    "label": "Line Health",
+    "value": "92%",
+    "status": "Good",
+    "detail": "92% products pass inspection"
+  },
+  "shiftTrend": [89, 91, 93, 92, 94],
+  "tableTitle": "EVQC",
+  "notificationPanel": {
+    "title": "Create Notification",
+    "placeholder": "Send User Notifications",
+    "buttonLabel": "Send Notification"
+  },
+  "subNodePanel": {
+    "title": "Create New Sub Node",
+    "placeholder": "New Subnode Name",
+    "buttonLabel": "Create new subnode"
+  },
+  "nodes": [
+    {
+      "id": "evqc-node-1",
+      "label": "EV Machine 1",
+      "type": "production-line",
+      "children": [
+        { "id": "evqc-recipe-1", "label": "EV Recipe", "type": "recipe" }
+      ]
+    },
+    {
+      "id": "evqc-node-2",
+      "label": "EV Machine 2",
+      "type": "production-line",
+      "children": [
+        { "id": "evqc-recipe-2", "label": "EV Recipe", "type": "recipe" }
+      ]
+    },
+    {
+      "id": "evqc-node-3",
+      "label": "EV Machine 3",
+      "type": "production-line",
+      "children": [
+        { "id": "evqc-recipe-3", "label": "EV Recipe", "type": "recipe" }
+      ]
+    }
+  ],
+  "tableColumns": [
+    { "key": "productionLine", "label": "Machine" },
+    { "key": "productType", "label": "Product Type" },
+    { "key": "defectType", "label": "Defect Type" },
+    { "key": "defectCount", "label": "Count" },
+    { "key": "confidence", "label": "Confidence" }
+  ],
+  "tableRows": [
+    { "productionLine": "EV Machine 1", "productType": "Shampoo Bottle", "defectType": "Print Error", "defectCount": 8, "confidence": "98%" },
+    { "productionLine": "EV Machine 1", "productType": "Shampoo Bottle", "defectType": "Size Mismatch", "defectCount": 3, "confidence": "95%" },
+    { "productionLine": "EV Machine 2", "productType": "Soap Bar", "defectType": "Surface Defect", "defectCount": 12, "confidence": "92%" },
+    { "productionLine": "EV Machine 2", "productType": "Soap Bar", "defectType": "Color Variance", "defectCount": 5, "confidence": "88%" },
+    { "productionLine": "EV Machine 3", "productType": "Conditioner Bottle", "defectType": "Cap Missing", "defectCount": 2, "confidence": "99%" },
+    { "productionLine": "EV Machine 3", "productType": "Conditioner Bottle", "defectType": "Label Misalign", "defectCount": 7, "confidence": "94%" },
+    { "productionLine": "EV Machine 1", "productType": "Lotion Pump", "defectType": "Pump Defect", "defectCount": 4, "confidence": "97%" },
+    { "productionLine": "EV Machine 1", "productType": "Lotion Pump", "defectType": "Leak Detection", "defectCount": 1, "confidence": "99%" },
+    { "productionLine": "EV Machine 2", "productType": "Gel Tube", "defectType": "Seal Defect", "defectCount": 6, "confidence": "93%" },
+    { "productionLine": "EV Machine 2", "productType": "Gel Tube", "defectType": "Dimension Error", "defectCount": 9, "confidence": "96%" },
+    { "productionLine": "EV Machine 3", "productType": "Powder Container", "defectType": "Dent/Crush", "defectCount": 11, "confidence": "91%" },
+    { "productionLine": "EV Machine 3", "productType": "Powder Container", "defectType": "Print Fading", "defectCount": 4, "confidence": "89%" }
+  ]
+}

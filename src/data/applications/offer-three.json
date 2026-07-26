@@ -1,0 +1,132 @@
+{
+  "id": "esp-oil-rig",
+  "name": "ESP Oil Rig",
+  "industry": "Energy",
+  "summary": "",
+  "menus": [
+    { "id": "overview", "label": "Overview" },
+    { "id": "production", "label": "Production" },
+    { "id": "health", "label": "Pump Health" }
+  ],
+  "stats": [
+    { "label": "Total Production", "value": "8,450 bbl/d", "trend": "+3.2%" },
+    { "label": "Pump Efficiency", "value": "87.5%", "trend": "+1.8%" },
+    { "label": "Uptime", "value": "98.9%", "trend": "+0.5%" }
+  ],
+  "healthMetric": {
+    "label": "System Health",
+    "value": "96%",
+    "status": "Excellent",
+    "detail": "96% optimal performance"
+  },
+  "shiftTrend": [85, 88, 91, 89, 92],
+  "tableTitle": "ESP Oil Rig",
+  "notificationPanel": {
+    "title": "Create Notification",
+    "placeholder": "Send User Notifications",
+    "buttonLabel": "Send Notification"
+  },
+  "subNodePanel": {
+    "title": "Create New Sub Node",
+    "placeholder": "New Subnode Name",
+    "buttonLabel": "Create new subnode"
+  },
+  "nodes": [
+    {
+      "id": "esp-node-1",
+      "label": "ESP Motor 1",
+      "type": "production-well",
+      "manufacturer": "MFG-2",
+      "model": "D725N",
+      "status": "RUNNING",
+      "assetDetails": {
+        "vsdEfficiency": 95,
+        "powerFactor": 0.8,
+        "vsdAmpNameplate": 950,
+        "motorAmpNameplate": 66.5,
+        "pumpShaftHP": 550,
+        "sealShaftHP": 1.050,
+        "motorEfficiency": 88,
+        "pumpEfficiency": 31.7,
+        "flowFactor": 0.91,
+        "gasPercentage": 0.7
+      },
+      "events": [],
+      "alarms": [],
+      "children": [
+        { "id": "esp-recipe-1", "label": "Pumping Recipe", "type": "recipe" }
+      ]
+    },
+    {
+      "id": "esp-node-2",
+      "label": "ESP Motor 2",
+      "type": "production-well",
+      "manufacturer": "MFG-2",
+      "model": "D725N",
+      "status": "RUNNING",
+      "assetDetails": {
+        "vsdEfficiency": 92,
+        "powerFactor": 0.85,
+        "vsdAmpNameplate": 920,
+        "motorAmpNameplate": 64.2,
+        "pumpShaftHP": 520,
+        "sealShaftHP": 1.020,
+        "motorEfficiency": 86,
+        "pumpEfficiency": 30.5,
+        "flowFactor": 0.89,
+        "gasPercentage": 0.65
+      },
+      "events": [],
+      "alarms": [],
+      "children": [
+        { "id": "esp-recipe-2", "label": "Pumping Recipe", "type": "recipe" }
+      ]
+    },
+    {
+      "id": "esp-node-3",
+      "label": "ESP Motor 3",
+      "type": "production-well",
+      "manufacturer": "MFG-2",
+      "model": "D725N",
+      "status": "RUNNING",
+      "assetDetails": {
+        "vsdEfficiency": 94,
+        "powerFactor": 0.82,
+        "vsdAmpNameplate": 960,
+        "motorAmpNameplate": 68.5,
+        "pumpShaftHP": 580,
+        "sealShaftHP": 1.080,
+        "motorEfficiency": 89,
+        "pumpEfficiency": 32.1,
+        "flowFactor": 0.93,
+        "gasPercentage": 0.72
+      },
+      "events": [],
+      "alarms": [],
+      "children": [
+        { "id": "esp-recipe-3", "label": "Pumping Recipe", "type": "recipe" }
+      ]
+    }
+  ],
+  "tableColumns": [
+    { "key": "well", "label": "Well" },
+    { "key": "depth", "label": "Depth (ft)" },
+    { "key": "flowRate", "label": "Flow Rate (bbl/d)" },
+    { "key": "pressure", "label": "Pressure (psi)" },
+    { "key": "temperature", "label": "Temp (°F)" }
+  ],
+  "tableRows": [
+    { "well": "ESP Motor 1", "depth": "8,250", "flowRate": "2,850", "pressure": "3,200", "temperature": "165" },
+    { "well": "ESP Motor 1", "depth": "8,250", "flowRate": "2,830", "pressure": "3,180", "temperature": "164" },
+    { "well": "ESP Motor 2", "depth": "8,500", "flowRate": "2,650", "pressure": "3,100", "temperature": "168" },
+    { "well": "ESP Motor 2", "depth": "8,500", "flowRate": "2,670", "pressure": "3,120", "temperature": "169" },
+    { "well": "ESP Motor 3", "depth": "7,800", "flowRate": "2,950", "pressure": "3,350", "temperature": "162" },
+    { "well": "ESP Motor 3", "depth": "7,800", "flowRate": "2,940", "pressure": "3,340", "temperature": "161" },
+    { "well": "ESP Motor 1", "depth": "8,250", "flowRate": "2,840", "pressure": "3,190", "temperature": "165" },
+    { "well": "ESP Motor 1", "depth": "8,250", "flowRate": "2,860", "pressure": "3,210", "temperature": "166" },
+    { "well": "ESP Motor 2", "depth": "8,500", "flowRate": "2,680", "pressure": "3,140", "temperature": "170" },
+    { "well": "ESP Motor 2", "depth": "8,500", "flowRate": "2,660", "pressure": "3,110", "temperature": "168" },
+    { "well": "ESP Motor 3", "depth": "7,800", "flowRate": "2,920", "pressure": "3,320", "temperature": "160" },
+    { "well": "ESP Motor 3", "depth": "7,800", "flowRate": "2,970", "pressure": "3,370", "temperature": "163" }
+  ]
+}

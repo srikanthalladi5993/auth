@@ -1,0 +1,80 @@
+{
+  "id": "predictive-maintenance",
+  "name": "Chip Manufacturing",
+  "industry": "Semiconductor",
+  "summary": "",
+  "menus": [
+    { "id": "overview", "label": "Overview" },
+    { "id": "alerts", "label": "Alerts" }
+  ],
+  "stats": [
+    { "label": "Critical Assets", "value": "42", "trend": "+5" },
+    { "label": "Maintenance Score", "value": "87/100", "trend": "+3" },
+    { "label": "Downtime Avoided", "value": "18.2h", "trend": "+12%" }
+  ],
+  "healthMetric": {
+    "label": "Operational Health",
+    "value": "74%",
+    "status": "Watch",
+    "detail": "74% healthy"
+  },
+  "shiftTrend": [48, 66, 61, 79, 72],
+  "tableTitle": "Chip Manufacturing",
+  "notificationPanel": {
+    "title": "Create Notification",
+    "placeholder": "Send User Notifications",
+    "buttonLabel": "Send Notification"
+  },
+  "subNodePanel": {
+    "title": "Create New Sub Node",
+    "placeholder": "New Subnode Name",
+    "buttonLabel": "Create new subnode"
+  },
+  "nodes": [
+    {
+      "id": "chip-node-1",
+      "label": "Chip Machine 1",
+      "type": "fab-unit",
+      "children": [
+        { "id": "chip-recipe-1", "label": "Chip Recipe", "type": "recipe" }
+      ]
+    },
+    {
+      "id": "chip-node-2",
+      "label": "Chip Machine 2",
+      "type": "fab-unit",
+      "children": [
+        { "id": "chip-recipe-2", "label": "Chip Recipe", "type": "recipe" }
+      ]
+    },
+    {
+      "id": "chip-node-3",
+      "label": "Chip Machine 3",
+      "type": "test-lab",
+      "children": [
+        { "id": "chip-recipe-3", "label": "Chip Recipe", "type": "recipe" }
+      ]
+    }
+  ],
+  "tableColumns": [
+    { "key": "asset", "label": "Asset" },
+    { "key": "location", "label": "Machine" },
+    { "key": "health", "label": "Health" },
+    { "key": "nextService", "label": "Next Service" },
+    { "key": "risk", "label": "Risk" }
+  ],
+  "tableRows": [
+    { "asset": "Wafer Scanner", "location": "Chip Machine 1", "health": "Good", "nextService": "3 days", "risk": "Low" },
+    { "asset": "Lithography Tool", "location": "Chip Machine 1", "health": "Excellent", "nextService": "7 days", "risk": "Low" },
+    { "asset": "Temperature Monitor", "location": "Chip Machine 1", "health": "Good", "nextService": "5 days", "risk": "Low" },
+    { "asset": "Etcher System", "location": "Chip Machine 2", "health": "Needs Attention", "nextService": "1 day", "risk": "Medium" },
+    { "asset": "Pressure Sensor", "location": "Chip Machine 2", "health": "Critical", "nextService": "Today", "risk": "High" },
+    { "asset": "Coolant Pump", "location": "Chip Machine 2", "health": "Warning", "nextService": "2 days", "risk": "Medium" },
+    { "asset": "Probe Station", "location": "Chip Machine 3", "health": "Excellent", "nextService": "6 days", "risk": "Low" },
+    { "asset": "Parameter Analyzer", "location": "Chip Machine 3", "health": "Good", "nextService": "4 days", "risk": "Low" },
+    { "asset": "Vibration Monitor", "location": "Chip Machine 1", "health": "Good", "nextService": "5 days", "risk": "Low" },
+    { "asset": "Flow Meter", "location": "Chip Machine 2", "health": "Warning", "nextService": "2 days", "risk": "Medium" },
+    { "asset": "Load Cell", "location": "Chip Machine 3", "health": "Excellent", "nextService": "8 days", "risk": "Low" },
+    { "asset": "Control Module", "location": "Chip Machine 1", "health": "Good", "nextService": "6 days", "risk": "Low" }
+  ]
+}
