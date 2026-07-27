@@ -1,4 +1,4 @@
-import ProtectedAppShell from './components/ProtectedAppShell'
+import ProtectedAppShell from './shell/ProtectedAppShell'
 import './App.css'
 
 function App() {

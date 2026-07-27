@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import offerOne from '../../data/applications/offer-one.json'
-import offerTwo from '../../data/applications/offer-two.json'
-import offerThree from '../../data/applications/offer-three.json'
+import offerOne from '../../offers/evqc/data/offer-one.json'
+import offerTwo from '../../offers/chip-manufacturing/data/offer-two.json'
+import offerThree from '../../offers/esp-oil-rig/data/offer-three.json'
 
 const applications = [offerOne, offerTwo, offerThree]
 

@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { Bell, Filter } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
 function ManageNotifications() {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ function ManageNotifications() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('All')
   const [showTypeFilter, setShowTypeFilter] = useState(false)
-  const filterRef = useRef(null)
+  const filterRef = useClickOutside(() => setShowTypeFilter(false), showTypeFilter)
 
   const filterOptions = [
     { label: 'All', value: 'All' },
@@ -39,23 +40,6 @@ function ManageNotifications() {
         return '#6b7280'
     }
   }
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (filterRef.current && !filterRef.current.contains(event.target)) {
-        setShowTypeFilter(false)
-      }
-    }
-
-    if (showTypeFilter) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [showTypeFilter])
 
   return (
     <div className="control-panel-page">

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { clearAuthSession, getAccessToken, getRefreshToken, saveAuthSession } from '../utils/authStorage'
+import { clearAuthSession, getAccessToken, getRefreshToken, saveAuthSession } from '../../utils/authStorage'
 
 // Step 2: create a custom axios instance
 // This is like making one smart HTTP client for our app.

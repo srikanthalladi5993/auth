@@ -2,12 +2,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LogOut, Menu, User, ChevronDown } from 'lucide-react'
 import { selectMenu, selectSelectedApp, selectSelectedMenu } from '../features/dashboard/dashboardSlice'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function TopNav({ onLogout, onOpenControlPanel, onBackToDashboard }) {
   const selectedApp = useSelector(selectSelectedApp)
   const selectedMenu = useSelector(selectSelectedMenu)
   const dispatch = useDispatch()
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const navigate = useNavigate()
+
+  const handleHomeClick = () => {
+    onBackToDashboard?.()
+    navigate('/')
+  }
 
   return (
     <header className="top-nav-shell">
@@ -63,7 +70,7 @@ function TopNav({ onLogout, onOpenControlPanel, onBackToDashboard }) {
         <button 
           className="nav-link" 
           type="button"
-          onClick={onBackToDashboard}
+          onClick={handleHomeClick}
         >
           Home
         </button>

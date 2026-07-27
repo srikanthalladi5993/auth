@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
 import { selectApplications } from '../../features/dashboard/dashboardSlice'
+import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
 function ManageRoles() {
   const navigate = useNavigate()
@@ -17,31 +18,14 @@ function ManageRoles() {
 
   const [openDropdowns, setOpenDropdowns] = useState({})
   const dropdownRefs = useRef({})
+  const isAnyOpen = Object.values(openDropdowns).some((v) => v)
+  useClickOutside(() => setOpenDropdowns({}), isAnyOpen)
 
   // New role form state
   const [newRoleName, setNewRoleName] = useState('')
   const [newRoleDescription, setNewRoleDescription] = useState('')
   const [newRoleApps, setNewRoleApps] = useState([])
   const [newRoleAccessLevel, setNewRoleAccessLevel] = useState('No Access')
-
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      Object.keys(dropdownRefs.current).forEach((key) => {
-        if (dropdownRefs.current[key] && !dropdownRefs.current[key].contains(event.target)) {
-          setOpenDropdowns((prev) => ({ ...prev, [key]: false }))
-        }
-      })
-    }
-
-    if (Object.values(openDropdowns).some((v) => v)) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [openDropdowns])
 
   const toggleDropdown = (roleId, type) => {
     const key = `${roleId}-${type}`

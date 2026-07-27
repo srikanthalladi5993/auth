@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
 import { selectSelectedApp, selectSelectedMenu } from '../features/dashboard/dashboardSlice'
-import StatsGrid from './Dashboard/StatsGrid'
-import HealthMetricChart from './Dashboard/HealthMetricChart'
-import ShiftTrendChart from './Dashboard/ShiftTrendChart'
-import ActionPanels from './Dashboard/ActionPanels'
-import DataTable from './Dashboard/DataTable'
+import StatsGrid from '../shared/components/StatsGrid'
+import HealthMetricChart from '../shared/components/HealthMetricChart'
+import ShiftTrendChart from '../shared/components/ShiftTrendChart'
+import ActionPanels from '../shared/components/ActionPanels'
+import DataTable from '../shared/components/DataTable'
 
 function DashboardView() {
   const selectedApp = useSelector(selectSelectedApp)

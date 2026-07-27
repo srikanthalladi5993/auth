@@ -1,32 +1,16 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { ArrowLeft, Bell } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
 function CreateAnnouncement() {
   const navigate = useNavigate()
   const [selectedRoles, setSelectedRoles] = useState([])
   const [showRoleDropdown, setShowRoleDropdown] = useState(false)
   const [message, setMessage] = useState('')
-  const dropdownRef = useRef(null)
+  const dropdownRef = useClickOutside(() => setShowRoleDropdown(false), showRoleDropdown)
 
   const roles = ['CF-Admin', 'CF-SME', 'CF-Operator', 'CF-Test', 'CF-Team', 'Demo Role']
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowRoleDropdown(false)
-      }
-    }
-
-    if (showRoleDropdown) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [showRoleDropdown])
 
   const handleRoleChange = (role) => {
     if (role === 'Select All') {

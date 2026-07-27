@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import espMotorImage from '../assets/esp-motor-pump.png'
+import espMotorImage from '../../../assets/esp-motor-pump.png'
 
 function MotorDetail() {
   const location = useLocation()

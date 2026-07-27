@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { clearAuthSession, getStoredUser, isAuthenticated, saveAuthSession } from '../utils/authStorage'
-import axiosClient from '../api/axiosClient'
+import axiosClient from '../shared/services/axiosClient'
 import Sidebar from './Sidebar'
 import TopNav from './TopNav'
-import DashboardView from './DashboardView'
-import MotorDetail from './MotorDetail'
-import ControlPanel from './ControlPanel'
+import DashboardView from '../offers/DashboardView'
+import MotorDetail from '../offers/esp-oil-rig/components/MotorDetail'
+import ControlPanel from '../control-panel/index'
 
 const DEMO_CREDENTIALS = {
   username: 'emilys',
@@ -106,7 +106,7 @@ function ProtectedAppShell() {
     <div className="auth-shell">
       <form className="card" onSubmit={handleLogin}>
         <h1>Login</h1>
-        <p className="hint">Use the DummyJSON demo credentials.</p>
+        <p className="hint">DummyJSON demo credentials.</p>
 
         <label className="field">
           <span>Username</span>

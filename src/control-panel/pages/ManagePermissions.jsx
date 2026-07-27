@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { ChevronDown, ArrowLeft } from 'lucide-react'
 import { selectApplications } from '../../features/dashboard/dashboardSlice'
+import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
 function ManagePermissions() {
   const location = useLocation()
@@ -25,6 +26,8 @@ function ManagePermissions() {
   const [selectedAccessLevel, setSelectedAccessLevel] = useState('Read')
   const [openDropdowns, setOpenDropdowns] = useState({})
   const dropdownRefs = useRef({})
+  const isAnyOpen = Object.values(openDropdowns).some((v) => v)
+  useClickOutside(() => setOpenDropdowns({}), isAnyOpen)
 
   const [permissions, setPermissions] = useState({
     1: {
@@ -56,24 +59,6 @@ function ManagePermissions() {
 
   const accessLevelOptions = ['Read', 'Write', 'Full Access', 'No Access']
   const actionsList = ['Send Notification', 'Create SubNode', 'Weather Table']
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      Object.keys(dropdownRefs.current).forEach((key) => {
-        if (dropdownRefs.current[key] && !dropdownRefs.current[key].contains(event.target)) {
-          setOpenDropdowns((prev) => ({ ...prev, [key]: false }))
-        }
-      })
-    }
-
-    if (Object.values(openDropdowns).some((v) => v)) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [openDropdowns])
 
   const toggleDropdown = (type) => {
     setOpenDropdowns((prev) => ({ ...prev, [type]: !prev[type] }))

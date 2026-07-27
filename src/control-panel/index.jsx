@@ -1,12 +1,12 @@
 import { ChevronRight } from 'lucide-react'
 import { useNavigate, Routes, Route, useLocation } from 'react-router-dom'
-import ManageUsers from './ControlPanel/ManageUsers'
-import ManageNotifications from './ControlPanel/ManageNotifications'
-import ManageRoles from './ControlPanel/ManageRoles'
-import ManagePermissions from './ControlPanel/ManagePermissions'
-import ManageSystemPermissions from './ControlPanel/ManageSystemPermissions'
-import CreateUser from './ControlPanel/CreateUser'
-import CreateAnnouncement from './ControlPanel/CreateAnnouncement'
+import ManageUsers from './pages/ManageUsers'
+import ManageNotifications from './pages/ManageNotifications'
+import ManageRoles from './pages/ManageRoles'
+import ManagePermissions from './pages/ManagePermissions'
+import ManageSystemPermissions from './pages/ManageSystemPermissions'
+import CreateUser from './pages/CreateUser'
+import CreateAnnouncement from './pages/CreateAnnouncement'
 
 function ControlPanel({ onBackToDashboard }) {
   const navigate = useNavigate()
