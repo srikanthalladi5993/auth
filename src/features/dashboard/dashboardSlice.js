@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
-import offerOne from '../../offers/evqc/data/offer-one.json'
-import offerTwo from '../../offers/chip-manufacturing/data/offer-two.json'
-import offerThree from '../../offers/esp-oil-rig/data/offer-three.json'
+import { composeOffers } from '../../offers/composeOffers'
 
-const applications = [offerOne, offerTwo, offerThree]
+const applications = composeOffers()
+const defaultApplication = applications[0] ?? null
+const defaultMenu = defaultApplication?.menus?.[0] ?? null
 
 const initialState = {
   applications,
-  selectedAppId: applications[0].id,
-  selectedMenuId: applications[0].menus[0].id,
+  selectedAppId: defaultApplication?.id ?? null,
+  selectedMenuId: defaultMenu?.id ?? null,
 }
 
 const dashboardSlice = createSlice({
@@ -20,7 +20,7 @@ const dashboardSlice = createSlice({
       const selectedApp = state.applications.find((app) => app.id === action.payload)
 
       if (selectedApp) {
-        state.selectedMenuId = selectedApp.menus[0].id
+        state.selectedMenuId = selectedApp.menus?.[0]?.id ?? null
       }
     },
     selectMenu: (state, action) => {
@@ -33,12 +33,21 @@ export const { selectApplication, selectMenu } = dashboardSlice.actions
 
 export const selectApplications = (state) => state.dashboard.applications
 export const selectSelectedApp = (state) => {
+  if (!state.dashboard.applications.length) {
+    return null
+  }
+
   const selectedApp = state.dashboard.applications.find((app) => app.id === state.dashboard.selectedAppId)
   return selectedApp ?? state.dashboard.applications[0]
 }
 
 export const selectSelectedMenu = (state) => {
   const selectedApp = selectSelectedApp(state)
+
+  if (!selectedApp) {
+    return null
+  }
+
   return selectedApp.menus.find((menu) => menu.id === state.dashboard.selectedMenuId) ?? selectedApp.menus[0]
 }
 

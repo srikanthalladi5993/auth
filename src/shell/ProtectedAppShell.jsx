@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { clearAuthSession, getStoredUser, isAuthenticated, saveAuthSession } from '../utils/authStorage'
-import axiosClient from '../shared/services/axiosClient'
+import { useAuth } from '../shared/hooks/useAuth'
 import Sidebar from './Sidebar'
 import TopNav from './TopNav'
 import DashboardView from '../offers/DashboardView'
@@ -17,40 +15,16 @@ const DEMO_CREDENTIALS = {
 function ProtectedAppShell() {
   const [username, setUsername] = useState(DEMO_CREDENTIALS.username)
   const [password, setPassword] = useState(DEMO_CREDENTIALS.password)
-  const [user, setUser] = useState(() => getStoredUser())
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const { user, error, loading, login, logout, isLoggedIn } = useAuth()
   const [showControlPanel, setShowControlPanel] = useState(false)
-  const isLoggedIn = useSelector((state) => isAuthenticated())
-
-  useEffect(() => {
-    setUser(getStoredUser())
-  }, [])
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    setLoading(true)
-    setError('')
-
-    try {
-      const response = await axiosClient.post('/auth/login', {
-        username,
-        password,
-      })
-
-      const { accessToken, refreshToken, ...userData } = response.data
-      saveAuthSession({ accessToken, refreshToken, ...userData })
-      setUser(userData)
-    } catch (loginError) {
-      setError('Login failed. Please check the credentials and try again.')
-    } finally {
-      setLoading(false)
-    }
+    await login({ username, password })
   }
 
   const handleLogout = () => {
-    clearAuthSession()
-    setUser(null)
+    logout()
     setShowControlPanel(false)
   }
 
@@ -62,7 +36,7 @@ function ProtectedAppShell() {
     setShowControlPanel(false)
   }
 
-  if (isAuthenticated() && user) {
+  if (isLoggedIn && user) {
     if (showControlPanel) {
       return (
         <BrowserRouter>

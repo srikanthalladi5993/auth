@@ -10,6 +10,19 @@ function DashboardView() {
   const selectedApp = useSelector(selectSelectedApp)
   const selectedMenu = useSelector(selectSelectedMenu)
 
+  if (!selectedApp || !selectedMenu) {
+    return (
+      <section className="dashboard-view">
+        <div className="dashboard-header">
+          <div>
+            <p className="eyebrow">No Offers Enabled</p>
+            <h2>Set VITE_ENABLED_OFFERS to compose this build.</h2>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   const tableColumns = selectedApp.tableColumns?.map((col) => col.key) || []
 
   return (

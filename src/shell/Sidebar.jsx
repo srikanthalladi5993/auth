@@ -45,6 +45,11 @@ function Sidebar() {
           <button type="button" aria-label="Add node">+</button>
         </div>
         <ul className="tree-list">
+          {!applications.length && (
+            <li>
+              <div className="tree-item level-0">No applications enabled</div>
+            </li>
+          )}
           {applications.map((app) => (
             <TreeNodeWithSelect
               key={app.id}

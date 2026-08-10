@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { clearAuthSession, getStoredUser, isAuthenticated, saveAuthSession } from '../../utils/authStorage'
 import axiosClient from '../services/axiosClient'
 
@@ -17,8 +16,6 @@ export function useAuth() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Keep user in sync with redux-driven re-renders
-  const reduxState = useSelector((state) => state)
   useEffect(() => {
     setUser(getStoredUser())
   }, [])

@@ -16,6 +16,9 @@ function TopNav({ onLogout, onOpenControlPanel, onBackToDashboard }) {
     navigate('/')
   }
 
+  const menus = selectedApp?.menus ?? []
+  const activeMenuId = selectedMenu?.id
+
   return (
     <header className="top-nav-shell">
       <div className="top-status-row">
@@ -76,10 +79,10 @@ function TopNav({ onLogout, onOpenControlPanel, onBackToDashboard }) {
         </button>
 
         <div className="nav-links">
-        {selectedApp.menus.map((menu) => (
+        {menus.map((menu) => (
           <button
             key={menu.id}
-            className={`nav-link ${selectedMenu.id === menu.id ? 'active' : ''}`}
+            className={`nav-link ${activeMenuId === menu.id ? 'active' : ''}`}
             onClick={() => dispatch(selectMenu(menu.id))}
           >
             {menu.label}

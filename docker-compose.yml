@@ -1,0 +1,9 @@
+services:
+  auth-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
