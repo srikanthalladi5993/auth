@@ -2,7 +2,11 @@ import { useMemo, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
-const ACCESS_LEVELS = ['Read', 'Write', 'Full Access', 'No Access']
+type AccessLevel = 'Read' | 'Write' | 'Full Access' | 'No Access'
+type PermissionRow = Record<AccessLevel, boolean>
+type RolePermissions = Record<string, PermissionRow>
+
+const ACCESS_LEVELS: AccessLevel[] = ['Read', 'Write', 'Full Access', 'No Access']
 
 const ROLE_OPTIONS = [
   { id: 1, name: 'CF-Admin' },
@@ -19,20 +23,20 @@ const SYSTEM_ACTIONS = [
   'Manage Menu Hierarchy',
 ]
 
-const createPermissionRow = (selectedLevel) => ({
+const createPermissionRow = (selectedLevel: AccessLevel): PermissionRow => ({
   Read: selectedLevel === 'Read',
   Write: selectedLevel === 'Write',
   'Full Access': selectedLevel === 'Full Access',
   'No Access': selectedLevel === 'No Access',
 })
 
-const createRolePermissions = (defaultLevel) =>
-  SYSTEM_ACTIONS.reduce((acc, actionName) => {
+const createRolePermissions = (defaultLevel: AccessLevel): RolePermissions =>
+  SYSTEM_ACTIONS.reduce<RolePermissions>((acc, actionName) => {
     acc[actionName] = createPermissionRow(defaultLevel)
     return acc
   }, {})
 
-const INITIAL_ROLE_PERMISSIONS = {
+const INITIAL_ROLE_PERMISSIONS: Record<number, RolePermissions> = {
   1: createRolePermissions('Full Access'),
   2: {
     'Manage User': createPermissionRow('No Access'),
@@ -52,8 +56,8 @@ const INITIAL_ROLE_PERMISSIONS = {
 
 function ManageSystemPermissions() {
   const [selectedRoleId, setSelectedRoleId] = useState(2)
-  const [permissionsByRole, setPermissionsByRole] = useState(INITIAL_ROLE_PERMISSIONS)
-  const [openDropdowns, setOpenDropdowns] = useState({})
+  const [permissionsByRole, setPermissionsByRole] = useState<Record<number, RolePermissions>>(INITIAL_ROLE_PERMISSIONS)
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({})
 
   const isAnyOpen = Object.values(openDropdowns).some(Boolean)
   const dropdownContainerRef = useClickOutside(() => setOpenDropdowns({}), isAnyOpen)
@@ -63,7 +67,7 @@ function ManageSystemPermissions() {
     [selectedRoleId]
   )
 
-  const selectedRolePermissions = permissionsByRole[selectedRoleId] || {}
+  const selectedRolePermissions: RolePermissions = permissionsByRole[selectedRoleId] || {}
 
   const selectedAccessLevel = useMemo(() => {
     const levels = SYSTEM_ACTIONS.map((actionName) => {
@@ -76,11 +80,11 @@ function ManageSystemPermissions() {
     return levels.every((level) => level === levels[0]) ? levels[0] : 'Custom'
   }, [selectedRolePermissions])
 
-  const toggleDropdown = (dropdownKey) => {
+  const toggleDropdown = (dropdownKey: string) => {
     setOpenDropdowns((prev) => ({ ...prev, [dropdownKey]: !prev[dropdownKey] }))
   }
 
-  const applyAccessToAction = (actionName, selectedLevel) => {
+  const applyAccessToAction = (actionName: string, selectedLevel: AccessLevel) => {
     setPermissionsByRole((prev) => ({
       ...prev,
       [selectedRoleId]: {
@@ -90,10 +94,10 @@ function ManageSystemPermissions() {
     }))
   }
 
-  const applyAccessToAllActions = (selectedLevel) => {
+  const applyAccessToAllActions = (selectedLevel: AccessLevel) => {
     setPermissionsByRole((prev) => ({
       ...prev,
-      [selectedRoleId]: SYSTEM_ACTIONS.reduce((acc, actionName) => {
+      [selectedRoleId]: SYSTEM_ACTIONS.reduce<RolePermissions>((acc, actionName) => {
         acc[actionName] = createPermissionRow(selectedLevel)
         return acc
       }, {}),
@@ -246,31 +250,35 @@ function ManageSystemPermissions() {
                       boxShadow: '0 6px 12px rgba(15, 23, 42, 0.15)',
                     }}
                   >
-                    {['Custom', ...ACCESS_LEVELS].map((level) => (
-                      <div
-                        key={level}
-                        onClick={() => {
-                          if (level !== 'Custom') {
-                            applyAccessToAllActions(level)
-                          }
-                          setOpenDropdowns((prev) => ({ ...prev, access: false }))
-                        }}
+                    {['Custom', ...ACCESS_LEVELS].map((level) => {
+                      const isCustom = level === 'Custom'
+
+                      return (
+                        <div
+                          key={level}
+                          onClick={() => {
+                            if (!isCustom) {
+                              applyAccessToAllActions(level as AccessLevel)
+                            }
+                            setOpenDropdowns((prev) => ({ ...prev, access: false }))
+                          }}
                         onMouseEnter={(event) => {
                           event.currentTarget.style.background = '#f3f4f6'
                         }}
                         onMouseLeave={(event) => {
                           event.currentTarget.style.background = '#ffffff'
                         }}
-                        style={{
-                          padding: '8px 12px',
-                          cursor: level === 'Custom' ? 'default' : 'pointer',
-                          fontSize: '0.85rem',
-                          color: level === 'Custom' ? '#9ca3af' : '#374151',
-                        }}
-                      >
-                        {level}
-                      </div>
-                    ))}
+                          style={{
+                            padding: '8px 12px',
+                            cursor: isCustom ? 'default' : 'pointer',
+                            fontSize: '0.85rem',
+                            color: isCustom ? '#9ca3af' : '#374151',
+                          }}
+                        >
+                          {level}
+                        </div>
+                      )
+                    })}
                   </div>
                 )}
               </div>

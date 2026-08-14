@@ -245,14 +245,114 @@
   padding: 6px 0;
 }
 
+.tree-app-wrapper {
+  list-style: none;
+}
+
+.tree-sort-drop-zone {
+  height: 1px;
+  margin: 0 10px;
+  border-radius: 999px;
+  background: transparent;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tree-sort-drop-zone--child {
+  margin-left: 34px;
+  margin-right: 10px;
+}
+
+.tree-sort-drop-zone.drag-over {
+  background: #39b455;
+  box-shadow: 0 0 0 1px rgba(57, 180, 85, 0.18);
+}
+
 .tree-list.nested {
   padding-left: 14px;
+}
+
+.tree-drop-zone {
+  margin: 0 10px 2px 28px;
+  padding: 0;
+  height: 4px;
+  border: 1px dashed transparent;
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.tree-drop-zone.drag-over {
+  border-color: #39b455;
+  background: #ecf8ee;
+  color: #1f7a32;
 }
 
 .tree-item-wrapper {
   display: flex;
   align-items: center;
   gap: 0;
+  border-radius: 4px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+}
+
+.tree-item-wrapper[draggable='true'] {
+  cursor: grab;
+}
+
+.tree-item-wrapper.dragging {
+  opacity: 0.65;
+  transform: translateX(8px) scale(0.985);
+  box-shadow: 0 14px 24px rgba(15, 23, 42, 0.12);
+  cursor: grabbing;
+}
+
+.tree-item-wrapper.drag-over {
+  background: #eaf8ee;
+  box-shadow: inset 0 0 0 1px #33b455, 0 0 0 2px rgba(57, 180, 85, 0.06);
+}
+
+.tree-item-wrapper.drop-success {
+  animation: tree-drop-pulse 0.5s ease;
+}
+
+.tree-item-wrapper.drag-over .tree-item {
+  position: relative;
+}
+
+.tree-item-wrapper.drag-over .tree-item::before,
+.tree-item-wrapper.drag-over .tree-item::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: #39b455;
+  border-radius: 999px;
+}
+
+.tree-item-wrapper.drag-over[data-drop-position='before'] .tree-item::before {
+  top: 0;
+}
+
+.tree-item-wrapper.drag-over[data-drop-position='after'] .tree-item::after {
+  bottom: 0;
+}
+
+@keyframes tree-drop-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(57, 180, 85, 0.32);
+  }
+
+  35% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 8px rgba(57, 180, 85, 0.12);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(57, 180, 85, 0);
+  }
 }
 
 .expand-btn {
@@ -296,6 +396,11 @@
 .tree-item:hover {
   background: #f4f8fd;
   border-left-color: #57be6a;
+}
+
+.tree-item-wrapper.drag-over .tree-item {
+  background: #eaf8ee;
+  border-left-color: #39b455;
 }
 
 .tree-item.active {

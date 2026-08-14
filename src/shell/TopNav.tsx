@@ -4,7 +4,13 @@ import { selectMenu, selectSelectedApp, selectSelectedMenu } from '../features/d
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function TopNav({ onLogout, onOpenControlPanel, onBackToDashboard }) {
+interface TopNavProps {
+  onLogout?: () => void
+  onOpenControlPanel?: () => void
+  onBackToDashboard?: () => void
+}
+
+function TopNav({ onLogout, onOpenControlPanel, onBackToDashboard }: TopNavProps) {
   const selectedApp = useSelector(selectSelectedApp)
   const selectedMenu = useSelector(selectSelectedMenu)
   const dispatch = useDispatch()

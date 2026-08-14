@@ -1,11 +1,15 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import espMotorImage from '../../../assets/esp-motor-pump.png'
+import espOilRigOffer from '../data/offer-three.json'
 
 function MotorDetail() {
   const location = useLocation()
   const navigate = useNavigate()
-  const motorNode = location.state?.motorNode
+  const params = useParams() as { motorId?: string; offerId?: string; '*': string }
+  const motorIdFromRoute = params.motorId ?? params['*'] ?? params.offerId
+  const fallbackMotorNode = espOilRigOffer.nodes.find((node) => node.id === motorIdFromRoute)
+  const motorNode = location.state?.motorNode ?? fallbackMotorNode
 
   if (!motorNode || !motorNode.assetDetails) {
     return (

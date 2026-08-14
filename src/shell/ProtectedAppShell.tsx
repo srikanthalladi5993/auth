@@ -1,21 +1,21 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useAuth } from '../shared/hooks/useAuth'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import TopNav from './TopNav'
-import DashboardView from '../offers/DashboardView'
-import MotorDetail from '../offers/esp-oil-rig/components/MotorDetail'
 import ControlPanel from '../control-panel/index'
+import { DEFAULT_OFFER_ID } from '../registry/offerRegistry'
+import { OfferLoader } from '../registry/OfferLoader'
+import { AuthProvider, useAuthContext } from '../auth/AuthContext'
 
 const DEMO_CREDENTIALS = {
   username: 'emilys',
   password: 'emilyspass',
 }
 
-function ProtectedAppShell() {
+function ProtectedAppShellContent() {
   const [username, setUsername] = useState(DEMO_CREDENTIALS.username)
   const [password, setPassword] = useState(DEMO_CREDENTIALS.password)
-  const { user, error, loading, login, logout, isLoggedIn } = useAuth()
+  const { user, error, loading, login, logout, isLoggedIn } = useAuthContext()
   const [showControlPanel, setShowControlPanel] = useState(false)
 
   const handleLogin = async (event) => {
@@ -66,8 +66,8 @@ function ProtectedAppShell() {
             <main className="main-panel">
               <TopNav onLogout={handleLogout} onOpenControlPanel={handleOpenControlPanel} />
               <Routes>
-                <Route path="/" element={<DashboardView />} />
-                <Route path="/motor/:motorId" element={<MotorDetail />} />
+                <Route path="/" element={<Navigate to={`/${DEFAULT_OFFER_ID}`} replace />} />
+                <Route path="/:offerId/*" element={<OfferLoader />} />
               </Routes>
             </main>
           </div>
@@ -102,4 +102,10 @@ function ProtectedAppShell() {
   )
 }
 
-export default ProtectedAppShell
+export default function ProtectedAppShell() {
+  return (
+    <AuthProvider>
+      <ProtectedAppShellContent />
+    </AuthProvider>
+  )
+}

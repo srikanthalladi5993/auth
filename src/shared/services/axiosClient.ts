@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosHeaders } from 'axios'
 import { clearAuthSession, getAccessToken, getRefreshToken, saveAuthSession } from '../../utils/authStorage'
 
 // Step 2: create a custom axios instance
@@ -17,10 +17,8 @@ axiosClient.interceptors.request.use(
     const token = getAccessToken()
 
     if (token) {
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${token}`,
-      }
+      config.headers = new AxiosHeaders(config.headers)
+      config.headers.set('Authorization', `Bearer ${token}`)
     }
 
     return config

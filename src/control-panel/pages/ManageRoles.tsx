@@ -16,23 +16,23 @@ function ManageRoles() {
     { id: 5, name: 'CF-Team', description: 'test', selectedApps: [], accessLevel: 'Full Access' },
   ])
 
-  const [openDropdowns, setOpenDropdowns] = useState({})
-  const dropdownRefs = useRef({})
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({})
+  const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const isAnyOpen = Object.values(openDropdowns).some((v) => v)
   useClickOutside(() => setOpenDropdowns({}), isAnyOpen)
 
   // New role form state
   const [newRoleName, setNewRoleName] = useState('')
   const [newRoleDescription, setNewRoleDescription] = useState('')
-  const [newRoleApps, setNewRoleApps] = useState([])
+  const [newRoleApps, setNewRoleApps] = useState<string[]>([])
   const [newRoleAccessLevel, setNewRoleAccessLevel] = useState('No Access')
 
-  const toggleDropdown = (roleId, type) => {
+  const toggleDropdown = (roleId: number | string, type: string) => {
     const key = `${roleId}-${type}`
     setOpenDropdowns((prev) => ({ ...prev, [key]: !prev[key] }))
   }
 
-  const handleAppSelect = (roleId, appId) => {
+  const handleAppSelect = (roleId: number, appId: string) => {
     setRoles((prev) =>
       prev.map((role) => {
         if (role.id === roleId) {
@@ -49,7 +49,7 @@ function ManageRoles() {
     )
   }
 
-  const handleSelectAllApps = (roleId) => {
+  const handleSelectAllApps = (roleId: number) => {
     setRoles((prev) =>
       prev.map((role) => {
         if (role.id === roleId) {
@@ -60,14 +60,14 @@ function ManageRoles() {
     )
   }
 
-  const handleAccessLevelChange = (roleId, level) => {
+  const handleAccessLevelChange = (roleId: number, level: string) => {
     setRoles((prev) =>
       prev.map((role) => (role.id === roleId ? { ...role, accessLevel: level } : role))
     )
     setOpenDropdowns((prev) => ({ ...prev, [`${roleId}-access`]: false }))
   }
 
-  const getAppDisplayText = (selectedAppIds) => {
+  const getAppDisplayText = (selectedAppIds: string[]) => {
     if (selectedAppIds.length === 0) return 'Select Application'
     if (selectedAppIds.length === applications.length) return 'All applications'
     return `${selectedAppIds.length} selected`
@@ -96,7 +96,7 @@ function ManageRoles() {
     setNewRoleApps(applications.map((app) => app.id))
   }
 
-  const handleNewRoleAppSelect = (appId) => {
+  const handleNewRoleAppSelect = (appId: string) => {
     let updated = [...newRoleApps]
     if (updated.includes(appId)) {
       updated = updated.filter((id) => id !== appId)
@@ -180,7 +180,9 @@ function ManageRoles() {
                 </td>
                 <td>
                   <div
-                    ref={(el) => (dropdownRefs.current['new-app'] = el)}
+                    ref={(el) => {
+                      dropdownRefs.current['new-app'] = el
+                    }}
                     style={{ position: 'relative' }}
                   >
                     <button
@@ -226,8 +228,14 @@ function ManageRoles() {
                             cursor: 'pointer',
                           }}
                           onClick={() => handleNewRoleSelectAllApps()}
-                          onMouseEnter={(e) => (e.target.style.background = '#f3f4f6')}
-                          onMouseLeave={(e) => (e.target.style.background = 'white')}
+                          onMouseEnter={(e) => {
+                            const target = e.currentTarget as HTMLElement
+                            target.style.background = '#f3f4f6'
+                          }}
+                          onMouseLeave={(e) => {
+                            const target = e.currentTarget as HTMLElement
+                            target.style.background = 'white'
+                          }}
                         >
                           <label
                             style={{
@@ -282,7 +290,9 @@ function ManageRoles() {
                 </td>
                 <td>
                   <div
-                    ref={(el) => (dropdownRefs.current['new-access'] = el)}
+                    ref={(el) => {
+                      dropdownRefs.current['new-access'] = el
+                    }}
                     style={{ position: 'relative' }}
                   >
                     <button
@@ -369,7 +379,9 @@ function ManageRoles() {
                   <td>{role.description}</td>
                   <td>
                     <div
-                      ref={(el) => (dropdownRefs.current[`${role.id}-app`] = el)}
+                      ref={(el) => {
+                        dropdownRefs.current[`${role.id}-app`] = el
+                      }}
                       style={{ position: 'relative' }}
                     >
                       <button
@@ -415,8 +427,14 @@ function ManageRoles() {
                               cursor: 'pointer',
                             }}
                             onClick={() => handleSelectAllApps(role.id)}
-                            onMouseEnter={(e) => (e.target.style.background = '#f3f4f6')}
-                            onMouseLeave={(e) => (e.target.style.background = 'white')}
+                            onMouseEnter={(e) => {
+                              const target = e.currentTarget as HTMLElement
+                              target.style.background = '#f3f4f6'
+                            }}
+                            onMouseLeave={(e) => {
+                              const target = e.currentTarget as HTMLElement
+                              target.style.background = 'white'
+                            }}
                           >
                             <label
                               style={{
@@ -471,7 +489,9 @@ function ManageRoles() {
                   </td>
                   <td>
                     <div
-                      ref={(el) => (dropdownRefs.current[`${role.id}-access`] = el)}
+                      ref={(el) => {
+                        dropdownRefs.current[`${role.id}-access`] = el
+                      }}
                       style={{ position: 'relative' }}
                     >
                       <button

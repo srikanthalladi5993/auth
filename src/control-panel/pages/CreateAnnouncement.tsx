@@ -121,7 +121,7 @@ function CreateAnnouncement() {
               required
               className="form-textarea"
               placeholder="Enter your announcement message here"
-              rows="6"
+              rows={6}
             />
           </div>
 

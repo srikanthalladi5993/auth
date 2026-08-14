@@ -21,11 +21,11 @@ function ManagePermissions() {
     { id: 5, name: 'CF-Team' },
   ])
 
-  const [selectedRoleId, setSelectedRoleId] = useState(selectedRole?.id || 1)
-  const [selectedAppId, setSelectedAppId] = useState(applications[0]?.id || '')
+  const [selectedRoleId, setSelectedRoleId] = useState<number>(selectedRole?.id || 1)
+  const [selectedAppId, setSelectedAppId] = useState<string>(applications[0]?.id || '')
   const [selectedAccessLevel, setSelectedAccessLevel] = useState('Read')
-  const [openDropdowns, setOpenDropdowns] = useState({})
-  const dropdownRefs = useRef({})
+  const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({})
+  const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const isAnyOpen = Object.values(openDropdowns).some((v) => v)
   useClickOutside(() => setOpenDropdowns({}), isAnyOpen)
 
@@ -60,11 +60,11 @@ function ManagePermissions() {
   const accessLevelOptions = ['Read', 'Write', 'Full Access', 'No Access']
   const actionsList = ['Send Notification', 'Create SubNode', 'Weather Table']
 
-  const toggleDropdown = (type) => {
+  const toggleDropdown = (type: string) => {
     setOpenDropdowns((prev) => ({ ...prev, [type]: !prev[type] }))
   }
 
-  const handlePermissionChange = (action, accessLevel) => {
+  const handlePermissionChange = (action: string, accessLevel: string) => {
     setPermissions((prev) => ({
       ...prev,
       [selectedRoleId]: {
@@ -114,7 +114,9 @@ function ManagePermissions() {
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.85rem', fontWeight: '500', color: '#374151' }}>
                 Role
               </label>
-              <div ref={(el) => (dropdownRefs.current['role'] = el)} style={{ position: 'relative' }}>
+              <div ref={(el) => {
+                dropdownRefs.current['role'] = el
+              }} style={{ position: 'relative' }}>
                 <button
                   onClick={() => toggleDropdown('role')}
                   style={{
@@ -179,7 +181,9 @@ function ManagePermissions() {
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.85rem', fontWeight: '500', color: '#374151' }}>
                 Application
               </label>
-              <div ref={(el) => (dropdownRefs.current['app'] = el)} style={{ position: 'relative' }}>
+              <div ref={(el) => {
+                dropdownRefs.current['app'] = el
+              }} style={{ position: 'relative' }}>
                 <button
                   onClick={() => toggleDropdown('app')}
                   style={{
@@ -244,7 +248,9 @@ function ManagePermissions() {
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.85rem', fontWeight: '500', color: '#374151' }}>
                 Level Of Access
               </label>
-              <div ref={(el) => (dropdownRefs.current['access'] = el)} style={{ position: 'relative' }}>
+              <div ref={(el) => {
+                dropdownRefs.current['access'] = el
+              }} style={{ position: 'relative' }}>
                 <button
                   onClick={() => toggleDropdown('access')}
                   style={{
